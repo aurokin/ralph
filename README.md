@@ -26,6 +26,14 @@ cp /path/to/ralph/prompt.md scripts/ralph/
 chmod +x scripts/ralph/ralph.sh
 ```
 
+### Option 1a: Deploy script
+
+Use the deploy script to copy `ralph.sh` and `prompt.md` into a target folder:
+
+```bash
+./deploy.zsh ~/path/to/your/project/scripts/ralph
+```
+
 ### Option 2: Install skills globally
 
 Copy the skills to your Amp config for use across all projects:
