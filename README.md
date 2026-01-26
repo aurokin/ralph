@@ -21,14 +21,14 @@ Copy the ralph files into your project:
 ```bash
 # From your project root
 mkdir -p scripts/ralph
-cp /path/to/ralph/ralph.sh scripts/ralph/
+cp /path/to/ralph/ralph_opencode.sh scripts/ralph/
 cp /path/to/ralph/prompt.md scripts/ralph/
-chmod +x scripts/ralph/ralph.sh
+chmod +x scripts/ralph/ralph_opencode.sh
 ```
 
 ### Option 1a: Deploy script
 
-Use the deploy script to copy `ralph.sh` and `prompt.md` into a target folder:
+Use the deploy script to copy `ralph_opencode.sh` and `prompt.md` into a target folder:
 
 ```bash
 ./deploy.zsh ~/path/to/your/project/scripts/ralph
@@ -80,26 +80,25 @@ This creates `prd.json` with user stories structured for autonomous execution.
 ### 3. Run Ralph
 
 ```bash
-./scripts/ralph/ralph.sh [max_iterations]
+./scripts/ralph/ralph_opencode.sh [max_iterations]
 ```
 
 Default is 10 iterations.
 
 Ralph will:
-1. Create a feature branch (from PRD `branchName`)
-2. Pick the highest priority story where `passes: false`
-3. Implement that single story
-4. Run quality checks (typecheck, tests)
-5. Commit if checks pass
-6. Update `prd.json` to mark story as `passes: true`
-7. Append learnings to `progress.txt`
-8. Repeat until all stories pass or max iterations reached
+1. Pick the highest priority story where `passes: false`
+2. Implement that single story
+3. Run quality checks (typecheck, tests)
+4. Commit if checks pass
+5. Update `prd.json` to mark story as `passes: true`
+6. Append learnings to `progress.txt`
+7. Repeat until all stories pass or max iterations reached
 
 ## Key Files
 
 | File | Purpose |
 |------|---------|
-| `ralph.sh` | The bash loop that spawns fresh opencode sessions |
+| `ralph_opencode.sh` | The bash loop that spawns fresh opencode sessions |
 | `prompt.md` | Instructions given to each opencode session |
 | `prd.json` | User stories with `passes` status (the task list) |
 | `prd.json.example` | Example PRD format for reference |
@@ -171,10 +170,6 @@ Edit `prompt.md` to customize Ralph's behavior for your project:
 - Add project-specific quality check commands
 - Include codebase conventions
 - Add common gotchas for your stack
-
-## Archiving
-
-Ralph automatically archives previous runs when you start a new feature (different `branchName`). Archives are saved to `archive/YYYY-MM-DD-feature-name/`.
 
 ## References
 

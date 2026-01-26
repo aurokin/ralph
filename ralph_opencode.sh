@@ -1,6 +1,6 @@
 #!/bin/bash
-# Ralph v2 - simplified opencode loop
-# Usage: ./ralph_v2.sh [max_iterations]
+# Ralph opencode - simplified opencode loop
+# Usage: ./ralph_opencode.sh [max_iterations]
 
 set -e
 
@@ -16,7 +16,7 @@ if [ ! -f "$PROGRESS_FILE" ]; then
   echo "---" >> "$PROGRESS_FILE"
 fi
 
-echo "Starting Ralph v2 - Max iterations: $MAX_ITERATIONS"
+echo "Starting Ralph opencode - Max iterations: $MAX_ITERATIONS"
 echo "Model: $MODEL (variant: $VARIANT)"
 
 for i in $(seq 1 "$MAX_ITERATIONS"); do
