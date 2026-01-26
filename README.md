@@ -1,6 +1,6 @@
 # Ralph
 
-Ralph is an autonomous AI agent loop that runs [Amp](https://ampcode.com) repeatedly until all PRD items are complete. Each iteration is a fresh Amp instance with clean context. Memory persists via git history, `progress.txt`, and `prd.json`.
+Ralph is an autonomous AI agent loop that runs opencode repeatedly until all PRD items are complete. Each iteration is a fresh opencode session with clean context. Memory persists via git history, `progress.txt`, and `prd.json`.
 
 Based on [Geoffrey Huntley's Ralph pattern](https://ghuntley.com/ralph/).
 
@@ -36,20 +36,20 @@ Use the deploy script to copy `ralph.sh` and `prompt.md` into a target folder:
 
 ### Option 2: Install skills globally
 
-Copy the skills to your Amp config for use across all projects:
+Copy the skills to your opencode config for use across all projects:
 
 ```bash
-cp -r skills/prd ~/.config/amp/skills/
-cp -r skills/ralph ~/.config/amp/skills/
+cp -r skills/prd ~/.config/opencode/skills/
+cp -r skills/ralph ~/.config/opencode/skills/
 ```
 
-### Configure Amp auto-handoff (recommended)
+### Configure opencode auto-handoff (recommended)
 
-Add to `~/.config/amp/settings.json`:
+Add to `~/.config/opencode/settings.json`:
 
 ```json
 {
-  "amp.experimental.autoHandoff": { "context": 90 }
+  "opencode.experimental.autoHandoff": { "context": 90 }
 }
 ```
 
@@ -99,8 +99,8 @@ Ralph will:
 
 | File | Purpose |
 |------|---------|
-| `ralph.sh` | The bash loop that spawns fresh Amp instances |
-| `prompt.md` | Instructions given to each Amp instance |
+| `ralph.sh` | The bash loop that spawns fresh opencode sessions |
+| `prompt.md` | Instructions given to each opencode session |
 | `prd.json` | User stories with `passes` status (the task list) |
 | `prd.json.example` | Example PRD format for reference |
 | `progress.txt` | Append-only learnings for future iterations |
@@ -110,7 +110,7 @@ Ralph will:
 
 ### Each Iteration = Fresh Context
 
-Each iteration spawns a **new Amp instance** with clean context. The only memory between iterations is:
+Each iteration spawns a **new opencode session** with clean context. The only memory between iterations is:
 - Git history (commits from previous iterations)
 - `progress.txt` (learnings and context)
 - `prd.json` (which stories are done)
@@ -132,7 +132,7 @@ Too big (split these):
 
 ### AGENTS.md Updates Are Critical
 
-After each iteration, Ralph updates the relevant `AGENTS.md` files with learnings. This is key because Amp automatically reads these files, so future iterations (and future human developers) benefit from discovered patterns, gotchas, and conventions.
+After each iteration, Ralph updates the relevant `AGENTS.md` files with learnings. This is key because opencode automatically reads these files, so future iterations (and future human developers) benefit from discovered patterns, gotchas, and conventions.
 
 Examples of what to add to AGENTS.md:
 - Patterns discovered ("this codebase uses X for Y")
@@ -179,4 +179,3 @@ Ralph automatically archives previous runs when you start a new feature (differe
 ## References
 
 - [Geoffrey Huntley's Ralph article](https://ghuntley.com/ralph/)
-- [Amp documentation](https://ampcode.com/manual)

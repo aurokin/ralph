@@ -26,4 +26,5 @@ Ralph is an autonomous AI agent loop that runs opencode repeatedly until all PRD
 - Avoid `tee /dev/stderr` with `opencode run` to prevent duplicate output
 - Memory persists via git history, `progress.txt`, and `prd.json`
 - Stories should be small enough to complete in one context window
+- Use opencode terminology consistently in documentation
 - Always update AGENTS.md with discovered patterns for future iterations
