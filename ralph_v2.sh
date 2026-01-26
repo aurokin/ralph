@@ -25,7 +25,7 @@ for i in $(seq 1 "$MAX_ITERATIONS"); do
   echo "  Ralph Iteration $i of $MAX_ITERATIONS"
   echo "═══════════════════════════════════════════════════════"
 
-  opencode run --share -m "$MODEL" --variant "$VARIANT" "$(cat "$SCRIPT_DIR/prompt.md")" 2>&1 | tee /dev/stderr
+  opencode run --share -m "$MODEL" --variant "$VARIANT" "$(cat "$SCRIPT_DIR/prompt.md")" 2>&1
 
   echo "Iteration $i complete. Continuing..."
   sleep 2
