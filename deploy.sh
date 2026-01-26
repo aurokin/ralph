@@ -28,13 +28,13 @@ if ! touch "$WRITE_TEST" 2>/dev/null; then
 fi
 rm -f "$WRITE_TEST"
 
-rm -f "$TARGET_PATH/ralph.sh" "$TARGET_PATH/prompt.md"
+rm -f "$TARGET_PATH/ralph_v2.sh" "$TARGET_PATH/prompt.md"
 
-if [[ ! -f "$SCRIPT_DIR/ralph.sh" || ! -f "$SCRIPT_DIR/prompt.md" ]]; then
-  echo "Error: ralph.sh or prompt.md not found in $SCRIPT_DIR"
+if [[ ! -f "$SCRIPT_DIR/ralph_v2.sh" || ! -f "$SCRIPT_DIR/prompt.md" ]]; then
+  echo "Error: ralph_v2.sh or prompt.md not found in $SCRIPT_DIR"
   exit 1
 fi
 
-cp "$SCRIPT_DIR/ralph.sh" "$SCRIPT_DIR/prompt.md" "$TARGET_PATH/"
+cp "$SCRIPT_DIR/ralph_v2.sh" "$SCRIPT_DIR/prompt.md" "$TARGET_PATH/"
 
-echo "Deployed ralph.sh and prompt.md to $TARGET_PATH"
+echo "Deployed ralph_v2.sh and prompt.md to $TARGET_PATH"
