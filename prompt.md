@@ -19,7 +19,7 @@ You are an autonomous coding agent working on a software project.
 APPEND to progress.txt (never replace, always append):
 ```
 ## [Date/Time] - [Story ID]
-Session: <opencode session id or share URL>
+Session: <session id or share URL, if available>
 - What was implemented
 - Files changed
 - **Learnings for future iterations:**
@@ -29,7 +29,7 @@ Session: <opencode session id or share URL>
 ---
 ```
 
-Include the session id or share URL so future iterations can use `opencode export` to reference previous work if needed.
+Include the session id or share URL so future iterations can reference previous work if needed.
 
 The learnings section is critical - it helps future iterations avoid repeating mistakes and understand the codebase better.
 

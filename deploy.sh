@@ -28,13 +28,13 @@ if ! touch "$WRITE_TEST" 2>/dev/null; then
 fi
 rm -f "$WRITE_TEST"
 
-rm -f "$TARGET_PATH/ralph_opencode.sh" "$TARGET_PATH/prompt.md"
+rm -f "$TARGET_PATH/ralph_opencode.sh" "$TARGET_PATH/ralph_gemini.sh" "$TARGET_PATH/prompt.md"
 
-if [[ ! -f "$SCRIPT_DIR/ralph_opencode.sh" || ! -f "$SCRIPT_DIR/prompt.md" ]]; then
-  echo "Error: ralph_opencode.sh or prompt.md not found in $SCRIPT_DIR"
+if [[ ! -f "$SCRIPT_DIR/ralph_opencode.sh" || ! -f "$SCRIPT_DIR/ralph_gemini.sh" || ! -f "$SCRIPT_DIR/prompt.md" ]]; then
+  echo "Error: ralph_opencode.sh, ralph_gemini.sh, or prompt.md not found in $SCRIPT_DIR"
   exit 1
 fi
 
-cp "$SCRIPT_DIR/ralph_opencode.sh" "$SCRIPT_DIR/prompt.md" "$TARGET_PATH/"
+cp "$SCRIPT_DIR/ralph_opencode.sh" "$SCRIPT_DIR/ralph_gemini.sh" "$SCRIPT_DIR/prompt.md" "$TARGET_PATH/"
 
-echo "Deployed ralph_opencode.sh and prompt.md to $TARGET_PATH"
+echo "Deployed ralph_opencode.sh, ralph_gemini.sh, and prompt.md to $TARGET_PATH"

@@ -1,6 +1,6 @@
 # Ralph
 
-Ralph is an autonomous AI agent loop that runs opencode repeatedly until all PRD items are complete. Each iteration is a fresh opencode session with clean context. Memory persists via git history, `progress.txt`, and `prd.json`.
+Ralph is an autonomous AI agent loop that runs opencode (default) or gemini repeatedly until all PRD items are complete. Each iteration is a fresh CLI session with clean context. Memory persists via git history, `progress.txt`, and `prd.json`.
 
 Based on [Geoffrey Huntley's Ralph pattern](https://ghuntley.com/ralph/).
 
@@ -8,7 +8,8 @@ Based on [Geoffrey Huntley's Ralph pattern](https://ghuntley.com/ralph/).
 
 ## Prerequisites
 
-- opencode CLI installed and authenticated
+- opencode CLI installed and authenticated (default runner)
+- gemini CLI installed and authenticated (for `ralph_gemini.sh`)
 - `jq` installed (`brew install jq` on macOS)
 - A git repository for your project
 
@@ -22,13 +23,14 @@ Copy the ralph files into your project:
 # From your project root
 mkdir -p scripts/ralph
 cp /path/to/ralph/ralph_opencode.sh scripts/ralph/
+cp /path/to/ralph/ralph_gemini.sh scripts/ralph/
 cp /path/to/ralph/prompt.md scripts/ralph/
-chmod +x scripts/ralph/ralph_opencode.sh
+chmod +x scripts/ralph/ralph_opencode.sh scripts/ralph/ralph_gemini.sh
 ```
 
 ### Option 1a: Deploy script
 
-Use the deploy script to copy `ralph_opencode.sh` and `prompt.md` into a target folder:
+Use the deploy script to copy `ralph_opencode.sh`, `ralph_gemini.sh`, and `prompt.md` into a target folder:
 
 ```bash
 ./deploy.zsh ~/path/to/your/project/scripts/ralph
@@ -80,10 +82,14 @@ This creates `prd.json` with user stories structured for autonomous execution.
 ### 3. Run Ralph
 
 ```bash
+# Default (opencode)
 ./scripts/ralph/ralph_opencode.sh [max_iterations]
+
+# Gemini variant
+./scripts/ralph/ralph_gemini.sh [max_iterations]
 ```
 
-Default is 10 iterations.
+Default is 10 iterations. opencode is the default runner.
 
 Ralph will:
 1. Pick the highest priority story where `passes: false`
@@ -99,17 +105,32 @@ Ralph will:
 | File | Purpose |
 |------|---------|
 | `ralph_opencode.sh` | The bash loop that spawns fresh opencode sessions |
-| `prompt.md` | Instructions given to each opencode session |
+| `ralph_gemini.sh` | The bash loop that spawns fresh gemini sessions |
+| `prompt.md` | Instructions given to each session |
 | `prd.json` | User stories with `passes` status (the task list) |
 | `prd.json.example` | Example PRD format for reference |
 | `progress.txt` | Append-only learnings for future iterations |
 | `skills/prd/` | Skill for generating PRDs |
 | `skills/ralph/` | Skill for converting PRDs to JSON |
+
+## Variants
+
+### Known Differences
+
+- `ralph_opencode.sh` uses `opencode run --share` and can output a share URL; `ralph_gemini.sh` runs in plain text and does not capture session IDs by default.
+- `ralph_opencode.sh` uses `VARIANT` via `--variant`; `ralph_gemini.sh` does not support variants.
+
+### Keeping Variants in Sync
+
+- Update both `ralph_opencode.sh` and `ralph_gemini.sh` when changing loop behavior or prompt handling.
+- Update the "Known Differences" list whenever the variants diverge.
+- Ensure `deploy.sh` continues to ship both scripts.
+
 ## Critical Concepts
 
 ### Each Iteration = Fresh Context
 
-Each iteration spawns a **new opencode session** with clean context. The only memory between iterations is:
+Each iteration spawns a **new CLI session** (opencode or gemini) with clean context. The only memory between iterations is:
 - Git history (commits from previous iterations)
 - `progress.txt` (learnings and context)
 - `prd.json` (which stories are done)
@@ -131,7 +152,7 @@ Too big (split these):
 
 ### AGENTS.md Updates Are Critical
 
-After each iteration, Ralph updates the relevant `AGENTS.md` files with learnings. This is key because opencode automatically reads these files, so future iterations (and future human developers) benefit from discovered patterns, gotchas, and conventions.
+After each iteration, Ralph updates the relevant `AGENTS.md` files with learnings. This is key because the agent reads these files, so future iterations (and future human developers) benefit from discovered patterns, gotchas, and conventions.
 
 Examples of what to add to AGENTS.md:
 - Patterns discovered ("this codebase uses X for Y")
@@ -147,7 +168,7 @@ Ralph only works if there are feedback loops:
 
 ### Stop Condition
 
-When all stories have `passes: true`, Ralph outputs `<promise>COMPLETE</promise>` and the loop exits.
+When all stories have `passes: true`, Ralph exits the loop.
 
 ## Debugging
 
