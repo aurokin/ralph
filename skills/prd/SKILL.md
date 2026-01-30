@@ -1,6 +1,6 @@
 ---
 name: prd
-description: "Generate a Product Requirements Document (PRD) for a new feature. Use when planning a feature, starting a new project, or when asked to create a PRD. Triggers on: create a prd, write prd for, plan this feature, requirements for, spec out."
+description: "Generate a Product Requirements Document (PRD) for a new feature. Use when planning a feature, starting a new project, or when asked to create a PRD. Triggers on: create a prd, write prd for."
 ---
 
 # PRD Generator
@@ -11,23 +11,24 @@ Create detailed Product Requirements Documents that are clear, actionable, and s
 
 ## The Job
 
-1. Receive a feature description from the user
-2. Ask 3-5 essential clarifying questions (with lettered options)
+1. Receive a plan for implementing a feature
+2. Analyze the plan and ask the user questions if required
 3. Generate a structured PRD based on answers
-4. Save to `tasks/prd-[feature-name].md`
+4. Save to `prd-[feature-name].md`
 
 **Important:** Do NOT start implementing. Just create the PRD.
 
 ---
 
-## Step 1: Clarifying Questions
+## Step 1: Analyze Plan
 
-Ask only critical questions where the initial prompt is ambiguous. Focus on:
-
+Study the documents the user references with their request. These files encompass the plans and the documentation required to execute them. Analyze the plan and its references they make to have a full understanding of the plan. Ensure you have information about these topics:
 - **Problem/Goal:** What problem does this solve?
 - **Core Functionality:** What are the key actions?
 - **Scope/Boundaries:** What should it NOT do?
 - **Success Criteria:** How do we know it's done?
+
+If you have any questions after analysis ask the user like this
 
 ### Format Questions Like This:
 
@@ -71,7 +72,7 @@ Each story needs:
 - **Description:** "As a [user], I want [feature] so that [benefit]"
 - **Acceptance Criteria:** Verifiable checklist of what "done" means
 
-Each story should be small enough to implement in one focused session.
+Each story should be small and granular enough to implement in one focused session.
 
 **Format:**
 ```markdown
@@ -232,9 +233,10 @@ Add priority levels to tasks so users can focus on what matters most. Tasks can 
 
 Before saving the PRD:
 
-- [ ] Asked clarifying questions with lettered options
+- [ ] Analyze the users plan
+- [ ] Asked clarifying questions with lettered options if required
 - [ ] Incorporated user's answers
-- [ ] User stories are small and specific
+- [ ] User stories are small, granular, and specific
 - [ ] Functional requirements are numbered and unambiguous
 - [ ] Non-goals section defines clear boundaries
 - [ ] Saved to `tasks/prd-[feature-name].md`
